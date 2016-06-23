@@ -12,6 +12,12 @@
      resize:vertical;
      outline:  0 !important;
  }
+<<<<<<< HEAD
+
+ input{
+   outline: 0 !important;
+ }
+=======
  select
  {
    outline: 0 !important;
@@ -20,6 +26,7 @@
 {
   cursor:pointer;
 }
+>>>>>>> 4c2cf8dbe79a4b15dca13d3baa21b713ada1d630
   #profile-other
   {
     background: rgb(240,240,240);
@@ -667,7 +674,7 @@ color:  rgb(173,214,241) !important;
     transition: all 0.5s;
     font-size:13px;
     position: absolute;
-    margin-top: 15px;
+    margin-top: 17px;
     border: 0px;
     padding: 5px;
     font-weight: bold;
@@ -676,6 +683,7 @@ color:  rgb(173,214,241) !important;
     font-weight: bold;
     background:#3498DB;
     color:white;
+    margin-left: 35px;
   }
 }
 
@@ -845,11 +853,13 @@ color:  rgb(173,214,241) !important;
         }
 
         .back-card{
-          padding: 10px;
+          padding: 15px;
         }
 
         .back-content{
-          border: #000 1px solid;
+          border: rgb(204,204,204) 1px solid;
+          font-size: 90%;
+          transition: all 0.3s;
         }
         .gap{
           height: 5px;
@@ -866,11 +876,18 @@ color:  rgb(173,214,241) !important;
 }
 .login-modal-toggle-text
 {
-  margin-top:2%;
+  margin-top:2.4%;
   margin-left: -13%;
   text-align: left;
   visibility: visible;
   color: white;
+}
+@media(min-width:1800px)
+{
+  .login-modal-toggle-text
+  {
+    margin-top: 2%;
+  }
 }
 .login-modal-image
 {
@@ -1048,11 +1065,11 @@ color:  rgb(173,214,241) !important;
 .green-button
 {
   background: rgb(46,204,113);
-  color: white;
+  color: rgb(240,240,240);
   padding: 0%;
   padding-left: 6%;
   padding-right: 6%;
-  border: 0.5px solid white;
+  border: 0.5px solid rgb(204,204,204);
 }
 .green-button p
 {
@@ -1112,8 +1129,7 @@ color:  rgb(173,214,241) !important;
   padding:5%;
   margin-top:5%;
   margin-bottom:5%;
-  color: black;
-  font-weight: bold;
+  color: rgb(40,40,40);
   position: relative;
   box-shadow:0 0 20px rgba(0,0,0,0.1);
 }
@@ -1126,6 +1142,8 @@ color:  rgb(173,214,241) !important;
   height:30vh;
   border-bottom: 1px solid rgb(204,204,204);
   text-align: center;
+  margin-left: 5%;
+  margin-right:5%;
 }
 .profile-self-image-holder
 {
@@ -1154,8 +1172,8 @@ color:  rgb(173,214,241) !important;
   overflow-y: scroll;
   min-height: 17vh;
   max-height: 17vh;
-  margin-left: 2%;
-  margin-right: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 .profile-self-aboutme-footer::-webkit-scrollbar {
    width: 0.4em;
@@ -1253,6 +1271,9 @@ color:  rgb(173,214,241) !important;
   border: 0;
   width:100%;
   height:6%;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  font-size: 120%;
 }
 .profile-search-bar-holder
 {
@@ -1263,6 +1284,11 @@ color:  rgb(173,214,241) !important;
 {
   height: 4%;
   width: auto;
+  margin-top: 16%;
+}
+.project-for-your-skills
+{
+    margin-top: 0.7%;
 }
 
 /*Cards On Self View profile*/
@@ -1421,7 +1447,7 @@ color:  rgb(173,214,241) !important;
 }
 @media (max-width: 600px) and (max-height: 600px){
   .new-cards-section{
-  height: 510%;
+  height: 580%;
  }
 }
 
@@ -1517,17 +1543,17 @@ color:  rgb(173,214,241) !important;
 
 .comments:before {
     width: 3px;
-    left: 105px;
+    left: 110px;
     bottom: 0px;
     background: rgba(240,240,240,0.3);
 }
 
 .comment:before {
-    width: 9px;
-    height: 9px;
-    border: 3px solid #fff;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #fff;
     border-radius: 100px;
-    margin: 16px 0 0 -6px;
+    margin: 16px 0 0 1.2px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.2), inset 0 1px 1px rgba(0,0,0,0.1);
     background: #3498DB;
 }
@@ -1557,6 +1583,33 @@ color:  rgb(173,214,241) !important;
   margin-right: 10px;
   border: 2px solid white;
 }
+@media(max-width:600px)
+{
+  #other-nav-right span
+  {
+    font-size: 115%;
+    margin-top: 5px;
+  }
+  .profile-other-nav-image
+  {
+    height: 7%;
+    margin-top: -5px;
+  }
+  .profile-self-info-footer
+  {
+    margin-top: -55px;
+    border-top: 1px solid rgb(204,204,204);
+  }
+  .profile-search-bar
+  {
+    height: 70%;
+  }
+  .profile-self-search-bar-row
+  {
+    margin-bottom: -120px;
+  }
+}
+
 .profile-other-user
 {
   background:white;
@@ -2264,9 +2317,31 @@ Edit Profile
   color:white;
   font-size:150%;
 }
+.homepage-get-service
+{
+  text-decoration: none;
+  color:black;
+}
+.homepage-get-service:hover
+{
+  color:black;
+}
+.back-content:hover
+{
+  transform:scale(1.02);
+  transition:all 0.3s;
+}
 .work
 {
   padding: 2%;
+  border-right: 1px solid rgb(204,204,204);
+}
+.money
+{
+  padding: 0.5%;
+  font-size: 120%;
+  color:green;
+
 }
 .onboarding-added-work
 {
