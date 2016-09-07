@@ -2,7 +2,6 @@
   {
     background:#3498DB;
      font-family: Montserrat, sans-serif;
-     x-overflow:hidden;
   }
  input
  {
@@ -12,21 +11,88 @@
      resize:vertical;
      outline:  0 !important;
  }
-<<<<<<< HEAD
 
  input{
    outline: 0 !important;
  }
-=======
+
  select
  {
    outline: 0 !important;
  }
+
 .pointer
 {
   cursor:pointer;
 }
->>>>>>> 4c2cf8dbe79a4b15dca13d3baa21b713ada1d630
+.search-overlay
+{
+  position: fixed;
+  z-index: 1;
+  height: 0px;
+  width: 0px;
+  top:0;
+  left:0;
+  background: rgba(0,0,0,0.0);
+}
+.search-overlay-triggered
+{
+  height: 100vh;
+  width: 100vw;
+}
+#search-result-row
+{
+  position: fixed;
+  width: 100%;
+  z-index: 12000;
+  margin-top:8vh;
+  margin-left: -28px;
+}
+@media(min-width:1900px) {
+  #search-result-row
+  {
+    margin-top: 6.5vh;
+    margin-left: -35px;
+  }
+  .search-result-image
+  {
+    width: 50% !important;
+  }
+  .search-result p
+  {
+    margin-left: -50px !important;
+    margin-top: 11px !important;
+    font-size: 150% !important;
+  }
+}
+.search-result
+{
+  background: white;
+  width: 100%;
+  height: 100%;
+  margin-left: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgb(204,204,204);
+  cursor: pointer;
+  transition: 0.3s all;
+}
+.search-result:hover
+{
+  background: rgb(240,240,240);
+  transition: 0.3s all;
+}
+.search-result-image
+{
+  width: 70%;
+  border-radius: 100%;
+}
+.search-result p
+{
+  margin-left: -20px;
+  margin-top: 1.6vh;
+  font-size: 120%;
+}
   #profile-other
   {
     background: rgb(240,240,240);
@@ -173,18 +239,20 @@
 
    .topbar{
 
-      height: 80px;
+      min-height: 80px;
       background: #fff;
       position: fixed;
       left: 0px;
       width: 100%;
       text-align: center;
       z-index: 2;
-      padding-bottom: 5%;
+      padding:15px;
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      top: -20px;
+      top: -40px;
       background: #3498DB;
       color: white;
+      padding-bottom: 0;
+      overflow-x: hidden !important;
    }
 @media(min-width:1800px)
 {
@@ -192,7 +260,8 @@
   {
       padding-top: 1%;
       font-size: 150%;
-      padding-bottom: 6.5%;
+      margin-top: -10px;
+
   }
 }
    .topbar span
@@ -202,6 +271,9 @@
      margin-right: 30%;
      color: white;
    }
+
+  #recent
+
    .rounded-box{
       width: 100%; border-radius: 50px; border: 0px;
    }
@@ -248,7 +320,7 @@
    .brand-name
    {
      text-align: left;
-     margin-top: 15px;
+     margin-top: 22px;
      margin-left: -10px;
      padding-left: 0;
      font-size: 130%;
@@ -359,12 +431,17 @@
   background:white;
   width:100%;
   right:10%;
-  box-shadow: 3px 3px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
   cursor: pointer;
   transition: all 0.3s;
   padding: 5%;
   min-height: 195px;
 }
+.customcard:hover {
+  box-shadow: 0 0 24px rgba(0,0,0,0.28);
+  transition: all 0.3s;
+}
+
 @media(min-width:1900px)
 {
   .customcard
@@ -394,8 +471,8 @@
 .card-padding
 {
   padding-top:3%;
-  padding-left: 9%;
-  padding-right: 9%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 .topcard
 {
@@ -407,7 +484,9 @@
   padding-right:3%;
   padding-bottom: 2%;
   background:rgb(84,95,102);;
+  overflow-x: hidden;
 }
+
 .card-header
 {
   padding:0;
@@ -499,7 +578,7 @@ max-height: 93px;
 
 #homepage-search-icon
 {
-  margin-top: 52%;
+  margin-top: 20px;
   font-size: 150%;
   margin-left: 110%;
   padding: 0;
@@ -508,6 +587,7 @@ max-height: 93px;
 #homepage-search-row
 {
   margin-left: -38%;
+  margin-top: 4px;
 }
 @media(min-width:1400px)
 {
@@ -517,7 +597,7 @@ max-height: 93px;
   }
   #homepage-search-icon
   {
-    margin-top: 25%;
+    margin-top: 17px;
     font-size: 150%;
       margin-left: 100%;
     padding: 0;
@@ -705,6 +785,7 @@ color:  rgb(173,214,241) !important;
     float: right;
     text-align: center;
     margin-top: 0.45%;
+    border-radius: 2px;
   }
   .card-button a
   {
@@ -729,6 +810,7 @@ color:  rgb(173,214,241) !important;
     float: right;
     text-align: center;
     margin-top:0;
+    border-radius:2px;
   }
   .card-button a
   {
@@ -842,7 +924,20 @@ color:  rgb(173,214,241) !important;
             padding:5px;
 
         }
-
+        @media(min-width:1900px)
+        {
+          .front{
+            padding-top: 10px;
+          }
+          .card-footer
+          {
+            margin-top: -12px !important;
+          }
+          .card-button
+          {
+            margin-top: 12px;
+          }
+        }
 
 
         /* back, initially hidden pane */
@@ -876,7 +971,7 @@ color:  rgb(173,214,241) !important;
 }
 .login-modal-toggle-text
 {
-  margin-top:2.4%;
+  margin-top:3.5%;
   margin-left: -13%;
   text-align: left;
   visibility: visible;
@@ -886,13 +981,14 @@ color:  rgb(173,214,241) !important;
 {
   .login-modal-toggle-text
   {
-    margin-top: 2%;
+    margin-top: 2.8%;
   }
 }
 .login-modal-image
 {
   position: relative;
   width:50%;
+  margin-top: 5px;
   height: auto;
   display: inline-block;
 }
@@ -1169,11 +1265,10 @@ color:  rgb(173,214,241) !important;
   padding-top:2%;
   text-align: center;
   margin-top:2%;
-  overflow-y: scroll;
+  overflow-y: auto;
   min-height: 17vh;
   max-height: 17vh;
   margin-left: 5%;
-  margin-right: 5%;
 }
 .profile-self-aboutme-footer::-webkit-scrollbar {
    width: 0.4em;
@@ -1187,6 +1282,17 @@ color:  rgb(173,214,241) !important;
  background-color: darkgrey;
  outline: 1px solid slategrey;
 }
+.CustomBadge
+{
+  background: white;
+  border: 1px solid #3498DB;
+  color: #3498DB;
+  padding:0.5%;
+  border-radius: 25px;
+  font-size: 80%;
+  padding-left: 0.7%;
+  padding-right: 0.7%;
+}
 .profile-self-aboutme-footer .CustomBadge
 {
   padding-top:2%;
@@ -1197,8 +1303,13 @@ color:  rgb(173,214,241) !important;
 }
 .profile-self-info-body
 {
-  height:85%;
+
+  min-height: 85%;
   border-bottom:1px solid rgb(204,204,204);
+  background: white;
+  max-height: 150%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .profile-self-info-footer-tab
 {
@@ -1210,6 +1321,7 @@ color:  rgb(173,214,241) !important;
   border: 1px solid rgb(204,204,204);
   border-bottom:none;
   border-top: none;
+  background: white;
 }
 
 .profile-self-info-footer-tab span
@@ -1294,8 +1406,8 @@ color:  rgb(173,214,241) !important;
 /*Cards On Self View profile*/
 
 .custom-long-card{
-    background: #ffffff; box-shadow: #0f0f0f 0px 0px 1px 0px; padding: 15px;padding-top: 0;font-size: 11px;
-    font-family: 'Montserrat', sans-serif;
+    background: #ffffff; box-shadow:0 0 2px rgba(0,0,0,0.2); padding: 15px;padding-top: 0;font-size: 11px;
+    font-family: 'Montserrat', sans-serif;transition: all 0.3s;
 }
 
 .new-cards{
@@ -1323,6 +1435,10 @@ color:  rgb(173,214,241) !important;
 .long-card-container a{
     font-size: 130%;
 }
+.long-card-container:hover .custom-long-card{
+  box-shadow: 0 0 24px rgba(0,0,0,0.32);
+  transition: all 0.3s;
+}
 
 .long-card-heading{
   background: #3498DB;
@@ -1335,9 +1451,13 @@ color:  rgb(173,214,241) !important;
   padding-top: 2%;
   color: white;
 }
+.long-card-title p{
+  color: rgba(240,240,240,0.85);
+}
 .long-card-title span{
   font-weight: bold;
   font-size: 120%;
+  color: rgba(240,240,240,1);
 }
 .long-card-desc{
 	border:1px solid #3498DB; padding:8px; color:#3498DB;;
@@ -1360,24 +1480,31 @@ color:  rgb(173,214,241) !important;
 }
 .long-card-tags{
   background: white;
-  font-size: 85%;
+  font-size: 120%;
+  font-weight: 500;
   color:#3498DB;
-  padding: 5px;
+  padding: 9px;
   margin: 2px;
-  border: 0.5px solid #3498DB;
-}
-.long-card-tags{
-  font-size: 110%;
+  border: 0.5px solid rgb(220,220,250);
+  border-radius: 20px;
 }
 .long-card-body{
   padding-top: 10px;
+
+    white-space: pre-wrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+    height: 140px;
+}
+.long-card-body p{
+  font-weight: lighter;
 }
  .apply    {
      padding: 0px;
 }
 
 .profile-image img{
-	width: 60px; position: relative;
+	width: 50px; position: relative; top:6px;
 }
 
 .apply{
@@ -1597,8 +1724,9 @@ color:  rgb(173,214,241) !important;
   }
   .profile-self-info-footer
   {
-    margin-top: -55px;
     border-top: 1px solid rgb(204,204,204);
+    background: white;
+
   }
   .profile-search-bar
   {
@@ -1670,9 +1798,10 @@ color:  rgb(173,214,241) !important;
       margin-top: -5%;
       font-size: 80%;
   }
-  .profile-other-banner-image
+  .profile-other-banner-image img
   {
-    height: 30%;
+    height: 20px;
+    width: auto;
   }
   .profile-other-user-projects
   {
@@ -1683,8 +1812,10 @@ color:  rgb(173,214,241) !important;
   .profile-other-user-projects span
   {
       font-weight: bold;
-      font-size: %;
+      height: 200px;
   }
+  .profile-other-user-projects .row{
+
 }
 @media(max-width:600px)
 {
@@ -1754,9 +1885,9 @@ color:  rgb(173,214,241) !important;
 .profile-other-banner-image
 {
   border-radius: 100%;
-  margin-top: -22%;
+  margin-top: 10px;
   margin-left: 5%;
-  height:45%;
+  height:5px !important;
   width:auto;
   border: 3px solid white;
 }
@@ -1912,7 +2043,7 @@ color:  rgb(173,214,241) !important;
   {
     margin-left: 10%;
     margin-top: -10%;
-    height: 22%;
+
   }
   .profile-other-card-row .badge
   {
@@ -2600,4 +2731,160 @@ Edit Profile
   margin: 0;
   margin-right: -20px;
   padding: 0;
+}
+.views-holder
+{
+  padding-top:50px !important;padding-left:50px !important;
+}
+.views-holder span
+{
+  font-weight: bold;
+  font-size: 120%;
+}
+.views-holder p
+{
+  margin-top: 20px;
+}
+@media(max-width:600px)
+{
+  .views-holder
+  {
+    padding-top: 5px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  .profile-self-info-body
+  {
+
+  }
+}
+.projects-section
+{
+    text-align:center; padding-top:20px;
+}
+.project-heading-row
+{
+  font-size:150%;font-weight:bold;
+  border-bottom: 1px solid rgb(204,204,204);
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-bottom: 10px;
+}
+.project-row
+{
+  font-size:120%; padding-top:30px !important;
+}
+.skills-section
+{
+  padding-top: 30px;
+  padding-left: 30px;
+  line-height: 50px;
+  font-size: 130%;
+}
+.skills-section span
+{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#search-result-heading p
+{
+    margin-left:15px;
+    font-size: 140%;
+    margin-top: 10px;
+}
+#search-result-heading
+{
+  background: white;
+  margin-left: 30px;
+  padding-top: 0px;
+  width: 100%;
+}
+.imageBox
+{
+    position: relative;
+    height: 300px;
+    width: 300px;
+    border:1px solid #aaa;
+    background: #fff;
+
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor:move;
+}
+
+.imageBox .thumbBox
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    margin-top: -100px;
+    margin-left: -100px;
+    box-sizing: border-box;
+    border: 1px solid rgb(102, 102, 102);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+    background: none repeat scroll 0% 0% transparent;
+}
+
+.imageBox .spinner
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    line-height: 400px;
+    background: rgba(0,0,0,0.7);
+}
+#btnCrop {
+  background-color: #3498DB;
+  color: white;
+  border-style: none;
+  border:none;
+  margin: 1%;
+  padding: 6px;
+  border-radius: 3%;
+  width: 50%;
+  font-weight: bold;
+}
+#btnZoomIn{
+  background-color: #3498DB;
+  color: white;
+  border-style: none;
+  border:none;
+  margin: 1%;
+  padding: 6px;
+  border-radius: 25%;
+  width: 10%;
+  font-weight: bold;
+
+}
+#btnZoomOut{
+  background-color: #3498DB;
+  color: white;
+  border-style: none;
+  border:none;
+  margin: 1%;
+  padding: 6px;;
+  border-radius: 25%;
+  width: 10%;
+  font-weight: bold;
+
+}
+.none{
+display: none;
+}
+#file{
+  margin: 3%;
+  font-weight: bold;
+}
+.container1 img{
+  border:1px  solid #000000;
+  border-width: 5px;
+  border-radius: 3%;
+  margin-bottom: 2%;
+  margin-left: 0px;
 }

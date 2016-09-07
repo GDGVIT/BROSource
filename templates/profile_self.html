@@ -10,16 +10,21 @@
     <link rel="stylesheet" href="../static/css/dash.css">
     <link rel="stylesheet" href="../static/css/messages.css">
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
-
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 
 
 </head>
+
 <script src="../static/js/jquery.min.js"></script>
 <script src="../static/js/profile.js"></script>
+<script src="../static/frameworks/Chart.js/Chart.js"></script>
 <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../static/js/self_script.js"></script>
 <script>
     $(document).ready(function () {
+        $('.projects-section').hide();
+        $('.skills-section').hide();
+        $('.rating-section').hide();
         var window_height=$(window).height();
         var z=$('.nav').height();
         var x=$('.navbar-nav').height();
@@ -36,271 +41,24 @@
         });
         $('.sliding').css({
             top:y
-        })
-
-        console.log('Hello World!');
-    });
-
+        });
+      });
 </script>
 <style>
 
 
 </style>
+
+{% extends "navbar.html" %}
+{% block body %}
 <body id="profile-self">
-<div class="container-fluid">
 
-  <div class="row sliding dash-container">
-    <div class="col-md-9 dash-dismisser dash-dismisser-display-none hidden-xs" onclick="$('.dash').addClass('col-md-offset-12'); $('.dash').removeClass('col-md-offset-9'); $('.dash').toggleClass('not-in-view in-view'); $('.dash-dismisser').toggleClass('dash-dismisser-display-none'); $('.dash-container').removeClass('z-index-high');"></div>
-    <div class="col-md-3 col-md-offset-12 dash not-in-view hidden-xs">
-      <div class="row">
-        <a href='/addproj'>
-        <div class="col-md-12 col-xs-12 dash-cols add-dash-col">
-          <div class="add-button">Add Project</div>
-        </div>
-        </a>
-        <a href='/profile/me'>
-        <div class="col-md-12 col-xs-12 dash-cols">
-          <i class="fa fa-circle-o-notch" aria-hidden="true"></i> Dashboard
-        </div>
-        </a>
-        <a href='#'>
-        <div class="col-md-12 col-xs-12 dash-cols">
-          <i class="fa fa-briefcase" aria-hidden="true"></i> Projects
-        </div>
-        </a>
-        <a href='#'>
-        <div class="col-md-12 col-xs-12 dash-cols">
-          <i class="fa fa-pencil" aria-hidden="true"></i> Reviews
-        </div>
-        </a>
-        <a href='/profile/update'>
-        <div class="col-md-12 col-xs-12 dash-cols">
-          <i class="fa fa-user" aria-hidden="true"></i> Edit Profile
-        </div>
-        </a>
-      </div>
-
-      <div class="row logout">
-        <a href='/logout'>
-        <div class="col-md-12 col-xs-12">
-          <i class="fa fa-power-off" aria-hidden="true"></i> Log Out
-        </div>
-      </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="row sliding notification">
-    <div class="col-md-9 bar-dismisser bar-dismisser-display-none hidden-xs" onclick="$('.bar').addClass('col-md-offset-12'); $('.bar').removeClass('col-md-offset-9'); $('.bar').toggleClass('not-in-view in-view'); $('.bar-dismisser').toggleClass('bar-dismisser-display-none'); $('.notification').removeClass('z-index-high')"></div>
-    <div class="col-md-3 col-md-offset-12 bar not-in-view hidden-xs" style="hidden">
-
-    <section class="comments">
-  <article class="comment">
-    <a class="comment-img" href="#non">
-      <p>16 March 2016<br><span>10:30pm</span></p>
-    </a>
-
-    <div class="comment-body">
-      <div class="text">
-        <p>Hello, this is an example comment</p>
-      </div>
-    </div>
-  </article>
-
-  <article class="comment">
-    <a class="comment-img" href="#non">
-    <p>16 March 2016<br><span>10:30pm</span></P>
-    </a>
-
-    <div class="comment-body">
-      <div class="text">
-        <p>This is a much longer one that will go on for a few lines.</p>
-        <p>It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.</p>
-      </div>
-    </div>
-  </article>
-
-  <article class="comment">
-    <a class="comment-img" href="#non">
-    <p>16 March 2016<br><span>10:30pm</span></p>
-    </a>
-
-    <div class="comment-body">
-      <div class="text">
-        <p>this presentation has been updated
-        to looks more precisely to the facebook timeline</p>
-      </div>
-    </div>
-  </article>
-</section>​
-
-    </div>
-  </div>
-
-
-
-  <div class="row sliding messaging">
-   <div class="col-md-9 msg-dismisser msg-dismisser-display-none hidden-xs" onclick="$('.msg').addClass('col-md-offset-12'); $('.msg').removeClass('col-md-offset-9'); $('.msg').toggleClass('not-in-view in-view'); $('.msg-dismisser').toggleClass('msg-dismi(sser-display-none'); $('.msg-view').addClass('col-md-offset-12'); $('.msg-view').removeClass('col-md-offset-7'); $('.msg-view').toggleClass('not-in-view in-view'); $('.messaging').removeClass('z-index-high');"></div>
-    <div class="col-md-3 col-md-offset-12 msg not-in-view hidden-xs">
-   <div class="view-messages">
-      <h2>Messages</h2>
-      <div class="row">
-        <div class="col-md-10 col-md-push-1 message">
-          <div class="col-md-3 msg-image">
-            <img src="../static/images/msg_head.jpeg" class="img-circle">
-          </div>
-          <div class="col-md-9 msg-preview" onclick="$('.msg').removeClass('col-md-offset-8'); $('.msg').addClass('col-md-offset-12');;$('.msg-view').toggleClass('col-md-offset-12 col-md-offset-7 not-in-view in-view msg-view-z-index-adjust'); $('.msg-view-dismisser').toggleClass('msg-dismisser-display-none');$('.message-view').toggleClass('msg-view-z-index-adjust');">
-            <h4>Sender Name</h4>
-            <small>Content up here!</small>
-          </div>
-        </div>
-
-        <div class="col-md-10 col-md-push-1 message">
-          <div class="col-md-3 msg-image">
-            <img src="../static/images/msg_head.jpeg" class="img-circle">
-          </div>
-          <div class="col-md-9 msg-preview">
-            <h4>Sender Name</h4>
-            <small>Content up here!</small>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-      <div class="col-md-12" style="background:#3498db; margin:2%; padding:5%;position:absolute;bottom:65px;text-align:center">
-        <a onclick="$('.view-messages').hide();$('.send-messages').show();" style="cursor:pointer;color:white;;">Compose Message</a>
-      </div>
-    </div>
-    </div>
-
-    <!-- Sending Messages -->
-
-    <div class="container-fluid sliding col-md-12 col-xs-12 col-sm-12 send-messages">
-    <form method="post" action="">
-    <div class="msg-topbar">
-      <div class="row">
-        <div class="col-lg-2 col-md-3">
-          <div class="send-msg-img-holder">
-            <img src="../static/images/17.jpg" class="send-msg-img">
-          </div>
-        </div>
-        <div class="col-lg-5 col-md-4 col-md-push-1">
-          <div class="sender-name"><h4>To Selena Gomez</h4><small class="msg-date">Direct Message</small></div>
-        </div>
-        <div class="col-lg-5 col-md-5">
-          <button type="submit" class="msg-type sumbit-btn" style="float: right; text-align:center;"><b>Send</b></button>
-        </div>
-      </div>
-    </div>
-
-      <div class="row">
-          <div class="col-md-12 col-xs-12">
-            <div class="msg-content">
-              <div class="form-group">
-              <textarea class="form-control" name = "message" placeholder="Enter the message here"></textarea>
-            </div>
-            </div>
-          </div>
-      </div>
-    </form>
-    <div class="msg-footer row">
-    <div class="col-md-12">
-      <a onclick="$('.view-messages').show();$('.send-messages').hide();" style="cursor:pointer;">Click here to close this message</a>
-    </div>
-  </div>
-    </div>
-    </div>
-  </div>
-<!--
-  <div class="row donating">
-    <div class="col-md-8"></div>
-    <div class="col-md-4 col-md-offset-12 donate-sidebar in-view">
-      <div class="donate-topbar row">
-        <div class="col-md-1 col-xs-1 donate-picture">
-        </div>
-        <div class="col-md-11 col-xs-11">
-          <div class="donating-to-placeholder">Donating To</div>
-          <div class="donating-to-name">William H. Gates</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="donate-img">
-          <img src="../static/images/donate.png">
-        </div>
-        <div class="donate-form col-md-12 col-xs-12 row">
-          <form method="post" action="#">
-            <p><i class="fa fa-rupee col-md-1 col-xs-1"></i> <input type="text" name="amt" required placeholder="Amount" class="donate-text col-md-11 col-xs-11"></p>
-            <p><i class="fa fa-envelope col-md-1 col-xs-1"></i> <input type="text" name="msg" placeholder="Message here" class="donate-text col-md-11 col-xs-11"></p>
-            <input name="anonymous" value=0 hidden=true>
-
-            <div class="donate-anonymous"><input type="checkbox" name="anonymous" value="Anonymous">Donate anonymously<br></div>
-            <input type="submit" value="Submit" class="col-xs-12 col-md-12 submit-button">
-          </form>
-        </div>
-      </div>
-
-    </div>
-  </div>
--->
-
-</div>
 
 
 
 <div class="container-fluid" id="profile-self-top-section">
 
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-          <div class="row nav-brand-heading">
-              <div class="col-md-2 col-xs-3">
-                  <div class="brand-name"><b>BRO</b>Source</div>
-              </div>
-             <div class="col-md-10 col-md-push-2 hide-on-small">
-                <ul class="nav navbar-nav">
-                    <li class="nav-search"><span class="glyphicon glyphicon-search nav-search-icon"></span>
-                      <form action="/search" method="post">
-                        <input type="" class="" name="query" placeholder="Search for Projects or People">
-                      </form>
-                    </li>
-                </ul>
-              </div>
-              <div class="col-xs-9 custom-push hide-on-large" style="padding:0;margin:0px;margin-top:5px;">
-                <ul class="center-align-on-small" id="other-nav-right">
-                  <li id="mobile-search"><a onclick="$('.search-mobile-topbar').toggleClass('search-mobile-topbar-in-view');"><span class="glyphicon glyphicon-search"></span></a></li>
-                  <li id="other-notification-trigger-small"><a href="notifications_mobile.html" target="_blank"><span class="glyphicon glyphicon-comment"></span></a></li>
-                  <li><a href="message_mobile.html" target="_blank"><span class="glyphicon glyphicon-bell"></span>&nbsp&nbsp</a></li>
-                   <li>
-        <!--             {% if result['userInfo']['photo_link'] != "" %}
-                     <img src="../{{ result['userInfo']['photo_link'] }}" class="img-responsive profile-other-nav-image">
-                     {% else %}  -->
-                     <img src="../static/images/17.jpg" class="img-responsive profile-other-nav-image">
-              <!--        {% end %}  --->
-                   </li>
-                </ul>
-              </div>
 
-          </div>
-          <a class="navbar-brand" href="#"></a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="navbar">
-        <br>
-         <ul class="nav navbar-nav navbar-right center-align-on-small" id="profile-self-nav-right">
-           <li><a class="pointer" onclick="  $('.view-messages').show();$('.send-messages').hide();$('.msg').toggleClass('col-md-offset-12 col-md-offset-9 not-in-view in-view');$('.messaging').toggleClass('z-index-high'); $('.msg-dismisser').toggleClass('msg-dismisser-display-none');"><span class="glyphicon glyphicon-comment"></span></a></li>
-           <li><a class="pointer" onclick="$('.bar').toggleClass('col-md-offset-12 col-md-offset-9 not-in-view in-view');$('.notification').toggleClass('z-index-high'); $('.bar-dismisser').toggleClass('bar-dismisser-display-none');"><span class="glyphicon glyphicon-bell"></span>&nbsp&nbsp</a></li>
-            <li><p align="right"><b>{{ result['userInfo']['username'] }}&nbsp&nbsp</b><br><a class="pointer">{{ result['userInfo']['email'] }}&nbsp&nbsp</a></p></li>
-            <li  onclick="$('.dash').toggleClass('col-md-offset-12 col-md-offset-9 not-in-view in-view');$('.dash-container').toggleClass('z-index-high'); $('.dash-dismisser').toggleClass('dash-dismisser-display-none');">
-    <!--          {% if result['userInfo']['photo_link'] != "" %}
-              <img src="../{{ result['userInfo']['photo_link'] }}" class="img-responsive profile-other-nav-image">
-              {% else %}  -->
-              <img src="../static/images/17.jpg" class="img-responsive profile-other-nav-image">
-        <!--      {% end %}  -->
-            </li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
   <div class="search-mobile-topbar container-fluid hide-on-large">
     <div class="row">
       <div class="col-md-12 col-xs-12">
@@ -333,20 +91,20 @@
                     <div class="profile-self-aboutme-holder">
                         <div class="profile-self-aboutme-header">
                             <div class="profile-self-image-holder">
-              <!--                {% if result['userInfo']['photo_link'] != '' %}
-                                <img src="../{{ result['userInfo']['photo_link'] }}" class="profile-self-image img-responsive">
-                              {% else %}  -->
+                              {% if result['data']['photo_link'] != '' %}
+                                <img src="../{{ result['data']['photo_link'] }}" class="profile-self-image img-responsive">
+                              {% else %}
                                 <img src="../static/images/17.jpg" class="profile-self-image img-responsive">
-                  <!--          {% end %}  -->
+                            {% end %}
                             </div>
                             <div class="profile-self-name-holder">
-                                <p><b>{{result['userInfo']['name']}}</b></p>
-                                <p>{{result['userInfo']['address']}}<br>{{result['userInfo']['email']}}</p>
+                                <p><b>{{result['data']['name']}}</b></p>
+                                <p>{{result['data']['address']}}<br>{{result['data']['email']}}</p>
                             </div>
                         </div>
                         <div class="profile-self-aboutme-footer">
                         <p>
-                          {% for skill in result['userInfo']['skills'] %}
+                          {% for skill in result['data']['skills'] %}
                             <span class="badge CustomBadge">{{ skill }}</span>
                             {% end %}
 
@@ -357,23 +115,136 @@
                     <div class="profile-self-findproject-holder">
                         <a href="#" class="profile-self-findproject">Manage Active Projects</a>
                     </div>
+                    <div class="profile-self-findproject-holder">
+                    <a href="/acceptService">Reqested Services</a>
+                    </div>
                 </div>
                 <div class="col-md-9 col-xs-12">
                     <div class="profile-self-info">
                         <div class="profile-self-info-body">
+                          <div class="views-section">
+                            <div class="row">
+                            <div class="col-md-6">
+                              <div class="views-holder" style="">
+                                <span>Your profile was viewed by:<br></span>
+                                <p>John Doe</p>
+                                <p>Hillary Clinton</p>
+                                <p>Selena Gommez</p>
+                                <p>Larry Page</p>
+                                <p>Diego Costa</p>
+                              </div>
+                            </div>
+                            <div class="col-md-6 hide-on-small">
+                              <canvas id="viewsChart" height="250" style="padding-right:50px;padding-top:50px;"></canvas>
+                              <script>
+                                var view_chart=$('#viewsChart');
+                                var lineChart= new Chart(view_chart, {
+                                     type:'line',
+                                     data: {
+                              labels: ['Hi', "February", "March", "April", "May"],
+                              datasets: [
+                                {
+                                    label: "Number Of Views",
+                                    fill: true,
+                                    lineTension: 0,
+                                    backgroundColor: "rgba(75,192,192,0.4)",
+                                    borderColor: "rgba(75,192,192,1)",
+                                    borderCapStyle: 'butt',
+                                    borderDash: [],
+                                    borderDashOffset: 0.0,
+                                    borderJoinStyle: 'miter',
+                                    pointBorderColor: "rgba(75,192,192,1)",
+                                    pointBackgroundColor: "#fff",
+                                    pointBorderWidth: 10,
+                                    pointHoverRadius: 11,
+                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                                    pointHoverBorderWidth: 2,
+                                    pointRadius: 1,
+                                    pointHitRadius: 10,
+                                    data: [65, 59, 80, 81, 56, 55, 40],
+                                    spanGaps: false,
+                                }
+                              ]
+                              }
+                                  });
+                              </script>
+                            </div>
+                          </div>
+                        </div>
+                          <div class="projects-section" style="">
+                            <div class="row project-heading-row" style="">
+                              <div class="col-md-5 col-md-push-1">
+                                Project Name
+                              </div>
+                              <div class="col-md-5 col-md-push-1">
+                                Project Price
+                              </div>
+                            </div>
+                            <div class="row project-row" style="">
+                              <div class="col-md-5 col-md-push-1">
+                                Design A Responsive Website
+                              </div>
+                              <div class="col-md-5 col-md-push-1">
+                                $6
+                              </div>
+                            </div>
+                            <div class="row project-row" style="">
+                              <div class="col-md-5 col-md-push-1">
+                                Design A Responsive Website
+                              </div>
+                              <div class="col-md-5 col-md-push-1">
+                                $6
+                              </div>
+                            </div>
+                            <div class="row project-row" style="">
+                              <div class="col-md-5 col-md-push-1">
+                                Design A Responsive Website
+                              </div>
+                              <div class="col-md-5 col-md-push-1">
+                                $6
+                              </div>
+                            </div>
+                            <div class="row project-row" style="">
+                              <div class="col-md-5 col-md-push-1">
+                                Design A Responsive Website
+                              </div>
+                              <div class="col-md-5 col-md-push-1">
+                                $6
+                              </div>
+                            </div>
+                            <div class="row project-row" style="">
+                              <div class="col-md-5 col-md-push-1">
+                                Design A Responsive Website
+                              </div>
+                              <div class="col-md-5 col-md-push-1">
+                                $6
+                              </div>
+                            </div>
+                          </div>
+                          <div class="skills-section">
+                            {% for skill in result['data']['skills'] %}
+                              <span class="badge CustomBadge">{{ skill }}</span>
+                              {% end %}
+                          </div>
+                          <div class="rating-section">
+                            <div class="rating-holder">
+
+                            </div>
+                          </div>
                         </div>
                         <div class="profile-self-info-footer">
-                            <div class="profile-self-info-footer-tab topborder-invisible" id="profile-self-footer-tab-views">
-                                <p><span><!--{{ result['userInfo']['views'] }} --></span><br>Views</p>
+                            <div class="profile-self-info-footer-tab topborder-invisible" id="profile-self-footer-tab-views" onclick="$('.views-section').show();$('.projects-section').hide();$('.skills-section').hide();$('.rating-section').hide();">
+                                <p><span><!--{{ result['data']['views'] }} --></span><br>Views</p>
                             </div>
-                            <div class="profile-self-info-footer-tab topborder-invisible" id="profile-self-footer-tab-completed">
-                                <p><span><!--{{ len(result['userInfo']['projects']) }} --></span><br>Projects</p>
+                            <div class="profile-self-info-footer-tab topborder-invisible" id="profile-self-footer-tab-completed" onclick="$('.views-section').hide();$('.projects-section').show();$('.skills-section').hide();$('.rating-section').hide();">
+                                <p><span><!--{{ len(result['data']['projects']) }} --></span><br>Projects</p>
                             </div>
-                            <div class="profile-self-info-footer-tab topborder-invisible" id="profile-self-footer-tab-ongoing">
-                                <p><span><!--{{ len(result['userInfo']['skills']) }} --></span><br>Skills</p>
+                            <div class="profile-self-info-footer-tab topborder-invisible" id="profile-self-footer-tab-ongoing" onclick="$('.views-section').hide();$('.projects-section').hide();$('.skills-section').show();$('.rating-section').hide();">
+                                <p><span><!--{{ len(result['data']['skills']) }} --></span><br>Skills</p>
                             </div>
-                            <div class="profile-self-info-footer-tab topborder-invisible" id="profile-self-footer-tab-skill">
-                                <p><span><!-- {{ result['userInfo']['ratings'] }}  --></span><br>Rating</p>
+                            <div class="profile-self-info-footer-tab topborder-invisible" id="profile-self-footer-tab-skill" onclick="$('.views-section').hide();$('.projects-section').hide();$('.skills-section').hide();$('.rating-section').show();">
+                                <p><span><!-- {{ result['data']['ratings'] }}  --></span><br>Rating</p>
                             </div>
                         </div>
                     </div>
@@ -422,7 +293,7 @@
                                       <div class="img-circle profile-image"><img src="../static/images/gdg.png" class="image"></div>
                                     </div>
                                     <div class="col-md-10 col-lg-10 col-sm-10">
-                                      <div class="long-card-title"><p><span>BroSource</span><br>Web Developers</p></div>
+                                      <div class="long-card-title"><p><span><!--{ projects[0]['name'] }}--></span><br>Web Developers</p></div>
 
                                     </div>
                                   </div>
@@ -433,8 +304,7 @@
                                     </div>
                                   </div>
                                   <div class="long-card-body">
-                                    <p>We want to get a animated video and header image made for our newly launched website!<br><br>The video should used colours from our logo and should be light to load. The header image should should show the benefits of being a freelancer and urge the user to sign up on our website.
-                                    </p>
+                                    <p><!--{projects[0]['description']}}--></p>
                                   </div>
                                   <div class="long-card-desc text-center"><a  href="#">View Details</a></div>
                                 </div>
@@ -451,7 +321,7 @@
                                         <div class="img-circle profile-image"><img src="../static/images/gdg.png" class="image"></div>
                                       </div>
                                       <div class="col-md-10 col-lg-10 col-sm-10">
-                                        <div class="long-card-title"><p><span>BroSource</span><br>Web Developers</p></div>
+                                        <div class="long-card-title"><p><span><!--{projects[1]['name']}}--></span><br>Web Developers</p></div>
 
                                       </div>
                                     </div>
@@ -462,8 +332,7 @@
                                       </div>
                                     </div>
                                     <div class="long-card-body">
-                                      <p>We want to get a animated video and header image made for our newly launched website!<br><br>The video should used colours from our logo and should be light to load. The header image should should show the benefits of being a freelancer and urge the user to sign up on our website.
-                                      </p>
+                                      <p><!--{projects[1]['description']}}--></p>
                                     </div>
                                     <div class="long-card-desc text-center"><a  href="#">View Details</a></div>
                                   </div>
@@ -479,7 +348,7 @@
                                           <div class="img-circle profile-image"><img src="../static/images/gdg.png" class="image"></div>
                                         </div>
                                         <div class="col-md-10 col-lg-10 col-sm-10">
-                                          <div class="long-card-title"><p><span>BroSource</span><br>Web Developers</p></div>
+                                          <div class="long-card-title"><p><span><!--{projects[2]['name']}}--></span><br>Web Developers</p></div>
 
                                         </div>
                                       </div>
@@ -490,8 +359,7 @@
                                         </div>
                                       </div>
                                       <div class="long-card-body">
-                                        <p>We want to get a animated video and header image made for our newly launched website!<br><br>The video should used colours from our logo and should be light to load. The header image should should show the benefits of being a freelancer and urge the user to sign up on our website.
-                                        </p>
+                                        <p><!--{projects[2]['description']}}--></p>
                                       </div>
                                       <div class="long-card-desc text-center"><a  href="#">View Details</a></div>
                                     </div>
@@ -515,7 +383,7 @@
                                                     <div class="img-circle profile-image"><img src="../static/images/gdg.png" class="image"></div>
                                                   </div>
                                                   <div class="col-md-10 col-lg-10 col-sm-10">
-                                                    <div class="long-card-title"><p><span>BroSource</span><br>Web Developers</p></div>
+                                                    <div class="long-card-title"><p><span><!--{projects[3]['name']}}--></span><br>Web Developers</p></div>
 
                                                   </div>
                                                 </div>
@@ -526,8 +394,7 @@
                                                   </div>
                                                 </div>
                                                 <div class="long-card-body">
-                                                  <p>We want to get a animated video and header image made for our newly launched website!<br><br>The video should used colours from our logo and should be light to load. The header image should should show the benefits of being a freelancer and urge the user to sign up on our website.
-                                                  </p>
+                                                  <p><!--{projects[3]['description']}}--></p>
                                                 </div>
                                                 <div class="long-card-desc text-center"><a  href="#">View Details</a></div>
                                               </div>
@@ -544,7 +411,7 @@
                                                       <div class="img-circle profile-image"><img src="../static/images/gdg.png" class="image"></div>
                                                     </div>
                                                     <div class="col-md-10 col-lg-10 col-sm-10">
-                                                      <div class="long-card-title"><p><span>BroSource</span><br>Web Developers</p></div>
+                                                      <div class="long-card-title"><p><span><!--{projects[4]['name']}}--></span><br>Web Developers</p></div>
 
                                                     </div>
                                                   </div>
@@ -555,8 +422,7 @@
                                                     </div>
                                                   </div>
                                                   <div class="long-card-body">
-                                                    <p>We want to get a animated video and header image made for our newly launched website!<br><br>The video should used colours from our logo and should be light to load. The header image should should show the benefits of being a freelancer and urge the user to sign up on our website.
-                                                    </p>
+                                                    <p><!--{projects[4]['description']}}--></p>
                                                   </div>
                                                   <div class="long-card-desc text-center"><a  href="#">View Details</a></div>
                                                 </div>
@@ -572,7 +438,7 @@
                                                         <div class="img-circle profile-image"><img src="../static/images/gdg.png" class="image"></div>
                                                       </div>
                                                       <div class="col-md-10 col-lg-10 col-sm-10">
-                                                        <div class="long-card-title"><p><span>BroSource</span><br>Web Developers</p></div>
+                                                        <div class="long-card-title"><p><span><!--{projects[5]['name']}}--></span><br>Web Developers</p></div>
 
                                                       </div>
                                                     </div>
@@ -583,8 +449,7 @@
                                                       </div>
                                                     </div>
                                                     <div class="long-card-body">
-                                                      <p>We want to get a animated video and header image made for our newly launched website!<br><br>The video should used colours from our logo and should be light to load. The header image should should show the benefits of being a freelancer and urge the user to sign up on our website.
-                                                      </p>
+                                                      <p><!--{projects[5]['description']}}--></p>
                                                     </div>
                                                     <div class="long-card-desc text-center"><a  href="#">View Details</a></div>
                                                   </div>
@@ -626,7 +491,6 @@
     <div class="col-md-4 col-xs-1"></div>
   </div>
 </div>
-
-
 </body>
+{% end %}
 </html>

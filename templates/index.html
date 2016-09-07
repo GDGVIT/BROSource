@@ -3,7 +3,7 @@
   <head>
     <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../static/css/animate.css">
-  <!--  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,12 +16,87 @@
 
 <script type="text/javascript" src="../static/js/script.js"></script>
 
+<script>
+  $(document).ready(function()
+  {
+      $('#search-result-row').hide();
+      $('.search-overlay').on('click', function()
+      {
+        $('#search-result-row').hide();
+      $('.search-overlay').removeClass('search-overlay-triggered');
+      });
+
+       $("#query").keydown(function(){
+    //only for checking purpose
+        console.log($("input").val());
+    });
+
+      $("#query").keyup(function()
+      {
+         setTimeout(returnJson,1);
+      });
+   var returnJson=function(){
+	var xhttp;
+
+    xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+	  $("#search-result-row").show();
+	  var x = JSON.stringify(xhttp.response);
+	  alert(typeof jQuery.parseJSON(x));
+      for(var i=0;i<xhttp.response.data[0].length;i++)
+      {
+		  $('#search-project').append('');
+		  $('#search-project').append('<div class="row search-result">\
+          <div class="col-md-9">\
+            <p style="margin-left:5px;">'+response.data[0].name+'</p>\
+          </div>\
+          <div class="col-md-3">\
+            <p>'+response.data[0].bids.length+' Bids</p>\
+			</div>\
+		</div>');
+	  }
+	  if(i==0)
+	  {
+		  $('#search-project').append('No Projects Found');
+	  }
+	  for(i=0;i<xhttp.response.data[1].length;i++)
+      {
+		  $('#search-people').append('');
+		  $('#search-people').append('<div class="row search-result">\
+          <div class="col-md-2">\
+            <img src="../static/images/17.jpg" class="search-result-image">\
+          </div>\
+          <div class="col-md-10">\
+            <p>'+response.data[1].username+'</p>\
+          </div>\
+      </div>');
+	  }
+	  if(i==0)
+	  {
+		  $('#search-people').append('No Projects Found');
+	  }
+      console.log("response:"+xhttp.response);
+      }
+     };
+
+	xhttp.open("GET", "/search?query="+$("#query").val(), true);
+	xhttp.send();
+	}
+    $(document).click(function(){
+
+		$("#search-result-row").hide();
+
+		});
+  });
+</script>
 
 <body>
 
 <!--Title Bar with the title and hidden search field which appears on scroll-->
 <div class="container-fluid">
-   <div class="topbar col-md-12">
+   <div class="topbar col-md-12" style="overflow-y:visible;">
      <br>
        <div class="row">
          <div class="col-md-3 col-xs-3">
@@ -52,15 +127,15 @@
                <span class="glyphicon glyphicon-search" id="homepage-search-icon"></span>
              </div>
              <div class="col-md-11 col-xs-12 center">
-               <form action="/search" method="post">
-                 <input type="text" class=" search " name="query" placeholder="Search for Projects or People">
+               <form action="/search" method="get" id="homepage-search-form">
+                 <input type="text" class=" search hide-on-small" id="query" name="query" placeholder="Search for Projects or People">
                </form>
              </div>
           </div>
          </div>
          <div class="col-md-4 col-xs-2 col-md-push-1">
          <!-- The Login Modal Toggle Button -->
-    <!--     {% if result['loggedIn'] == False %} -->
+<!--         {% if result['loggedIn'] == False %}{% end %} -->
          <a type="button" class="login-modal-toggle" data-toggle="modal" data-target="#Login-Signup">
            <div class="row hide-on-small">
             <div class="col-md-4 col-xs-4">
@@ -71,26 +146,10 @@
             </div>
           </div>
           <div class="row hide-on-large" style="margin-top:-5px;">
-            <span class="glyphicon glyphicon-user"></span>
+            <img src="../static/images/Login-Icon.png" class="login-modal-image" style="margin-left:-50px">
           </div>
         </a>
-    <!--    {%else%}
-        <a type="button" class="login-modal-toggle" href="/profile/me">
-           <div class="row">
-            <div class="col-md-4 col-xs-4">
-              {% if result['userInfo']['photo_link'] == "" %}
-              <img src="../static/images/Login-Icon.png" class="login-modal-image">
-              {% else %}
-              <img src="../{{ result['userInfo']['photo_link'] }}" class="login-modal-image">
-              {% end %}
-            </div>
-            <div class="col-md-6 col-xs-6 login-modal-toggle-text">
 
-              <p><h4>Hey, {{result['userInfo']['username']}}</h4></p>
-            </div>
-          </div>
-        </a>
-        {%end%}  -->
        </div>
        </div>
      </div>
@@ -231,9 +290,32 @@
                </div>
                </div>
            <!-- Login Modal Ends-->
-
+<div class="search-overlay"></div>
+<div class="coltainer-fluid hide-on-small" id="search-result-row">
+  <div class="row">
+    <div class="col-md-5 col-md-push-2">
+      <div class="row" id="search-result-heading">
+        <p>People:</p>
+      </div>
+      <div id="search-people">
+      
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 col-md-push-2">
+      <div class="row" id="search-result-heading">
+        <p>Projects:</p>
+      </div>
+      <div id="search-project">
+      
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container-fluid" id="homepage-carousel-holder">
 <div id="carousel-generic" class="carousel slide  homepage-carousel" data-ride="carousel">
+
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
@@ -333,7 +415,7 @@
                                       <div class="img-circle profile-image"><img src="../static/images/gdg.png" class="image"></div>
                                     </div>
                                     <div class="col-md-10 col-lg-10 col-sm-10">
-                                      <div class="long-card-title"><p><span>BroSource</span><br>Web Developers</p></div>
+                                      <div class="long-card-title"><p><span>{{ projects[0]['name'] }}</span><br>Web Developers</p></div>
 
                                     </div>
                                   </div>
@@ -344,10 +426,10 @@
                                     </div>
                                   </div>
                                   <div class="long-card-body">
-                                    <p>We want to get a animated video and header image made for our newly launched website!<br><br>The video should used colours from our logo and should be light to load. The header image should should show the benefits of being a freelancer and urge the user to sign up on our website.
+                                    <p>{{projects[0]['description']}}
                                     </p>
                                   </div>
-                                  <div class="long-card-desc text-center"><a  href="#">View Details</a></div>
+                                  <div class="long-card-desc text-center"><a  href="/viewproject/{{projects[0]['_id'] }}">View Details</a></div>
                                 </div>
                                 </div>
                               </div>
@@ -362,7 +444,7 @@
                                         <div class="img-circle profile-image"><img src="../static/images/gdg.png" class="image"></div>
                                       </div>
                                       <div class="col-md-10 col-lg-10 col-sm-10">
-                                        <div class="long-card-title"><p><span>BroSource</span><br>Web Developers</p></div>
+                                        <div class="long-card-title"><p><span>{{ projects[1]['name'] }}</span><br>Web Developers</p></div>
 
                                       </div>
                                     </div>
@@ -373,10 +455,10 @@
                                       </div>
                                     </div>
                                     <div class="long-card-body">
-                                      <p>We want to get a animated video and header image made for our newly launched website!<br><br>The video should used colours from our logo and should be light to load. The header image should should show the benefits of being a freelancer and urge the user to sign up on our website.
+                                      <p>{{projects[1]['description']}}
                                       </p>
                                     </div>
-                                    <div class="long-card-desc text-center"><a  href="#">View Details</a></div>
+                                    <div class="long-card-desc text-center"><a  href="/viewproject/{{projects[1]['_id'] }}">View Details</a></div>
                                   </div>
                                   </div>
                                 </div>
@@ -390,7 +472,7 @@
                                           <div class="img-circle profile-image"><img src="../static/images/gdg.png" class="image"></div>
                                         </div>
                                         <div class="col-md-10 col-lg-10 col-sm-10">
-                                          <div class="long-card-title"><p><span>BroSource</span><br>Web Developers</p></div>
+                                          <div class="long-card-title"><p><span>{{ projects[2]['name'] }}</span><br>Web Developers</p></div>
 
                                         </div>
                                       </div>
@@ -401,10 +483,10 @@
                                         </div>
                                       </div>
                                       <div class="long-card-body">
-                                        <p>We want to get a animated video and header image made for our newly launched website!<br><br>The video should used colours from our logo and should be light to load. The header image should should show the benefits of being a freelancer and urge the user to sign up on our website.
+                                        <p>{{projects[2]['description']}}
                                         </p>
                                       </div>
-                                      <div class="long-card-desc text-center"><a  href="#">View Details</a></div>
+                                      <div class="long-card-desc text-center"><a  href="/viewproject/{{projects[2]['_id'] }}">View Details</a></div>
                                     </div>
                                     </div>
                                   </div>
@@ -426,7 +508,7 @@
                                                     <div class="img-circle profile-image"><img src="../static/images/gdg.png" class="image"></div>
                                                   </div>
                                                   <div class="col-md-10 col-lg-10 col-sm-10">
-                                                    <div class="long-card-title"><p><span>BroSource</span><br>Web Developers</p></div>
+                                                    <div class="long-card-title"><p><span>{{ projects[3]['name'] }}</span><br>Web Developers</p></div>
 
                                                   </div>
                                                 </div>
@@ -437,10 +519,10 @@
                                                   </div>
                                                 </div>
                                                 <div class="long-card-body">
-                                                  <p>We want to get a animated video and header image made for our newly launched website!<br><br>The video should used colours from our logo and should be light to load. The header image should should show the benefits of being a freelancer and urge the user to sign up on our website.
+                                                  <p>{{projects[3]['description']}}
                                                   </p>
                                                 </div>
-                                                <div class="long-card-desc text-center"><a  href="#">View Details</a></div>
+                                                <div class="long-card-desc text-center"><a  href="/viewproject/{{projects[3]['_id'] }}">View Details</a></div>
                                               </div>
                                               </div>
                                             </div>
@@ -455,7 +537,7 @@
                                                       <div class="img-circle profile-image"><img src="../static/images/gdg.png" class="image"></div>
                                                     </div>
                                                     <div class="col-md-10 col-lg-10 col-sm-10">
-                                                      <div class="long-card-title"><p><span>BroSource</span><br>Web Developers</p></div>
+                                                      <div class="long-card-title"><p><span>{{ projects[4]['name'] }}</span><br>Web Developers</p></div>
 
                                                     </div>
                                                   </div>
@@ -466,10 +548,10 @@
                                                     </div>
                                                   </div>
                                                   <div class="long-card-body">
-                                                    <p>We want to get a animated video and header image made for our newly launched website!<br><br>The video should used colours from our logo and should be light to load. The header image should should show the benefits of being a freelancer and urge the user to sign up on our website.
+                                                    <p>{{projects[4]['description']}}
                                                     </p>
                                                   </div>
-                                                  <div class="long-card-desc text-center"><a  href="#">View Details</a></div>
+                                                  <div class="long-card-desc text-center"><a  href="/viewproject/{{projects[4]['_id'] }}">View Details</a></div>
                                                 </div>
                                                 </div>
                                               </div>
@@ -483,7 +565,7 @@
                                                         <div class="img-circle profile-image"><img src="../static/images/gdg.png" class="image"></div>
                                                       </div>
                                                       <div class="col-md-10 col-lg-10 col-sm-10">
-                                                        <div class="long-card-title"><p><span>BroSource</span><br>Web Developers</p></div>
+                                                        <div class="long-card-title"><p><span>{{ projects[5]['name'] }}</span><br>Web Developers</p></div>
 
                                                       </div>
                                                     </div>
@@ -494,10 +576,10 @@
                                                       </div>
                                                     </div>
                                                     <div class="long-card-body">
-                                                      <p>We want to get a animated video and header image made for our newly launched website!<br><br>The video should used colours from our logo and should be light to load. The header image should should show the benefits of being a freelancer and urge the user to sign up on our website.
+                                                      <p>{{projects[5]['description']}}
                                                       </p>
                                                     </div>
-                                                    <div class="long-card-desc text-center"><a  href="#">View Details</a></div>
+                                                    <div class="long-card-desc text-center"><a  href="/viewproject/{{projects[5]['_id'] }}">View Details</a></div>
                                                   </div>
                                                   </div>
                                                 </div>
@@ -519,7 +601,7 @@
         </div>
       </div>
       <!--First Row containing three cards-->
-      <div class="row">
+      <div class="row home-section">
       <!--Card 1-->
         <div class="col-md-4 col-xs-10 col-md-push-0 col-xs-push-1 grid-padding topcard card-holder">
           <div class=" flip-container1" ontouchstart="this.classList.toggle('hover');" onclick="$('.flip-container1').toggleClass('flip-container-on-click')">
@@ -530,7 +612,11 @@
               <div class="front">
                  <div class="row card-header">
                 <div class="col-md-3 col-xs-3 col-sm-3 card_image_holder">
-                  <img src="../static/images/17.jpg" class="card-profile-image img-responsive">
+                  {% if F1_photo!=''%}
+                    <img src="../{{ F1_photo }}" class="card-profile-image img-responsive">
+                    {% else %}
+                    <img src="../static/images/17.jpg" class="card-profile-image img-responsive">
+                {% end %}
                 </div>
                 <div class="col-md-9 col-xs-9 col-sm-9 card-heading">
                   <p><b>{{F1_Name}}</b><br>{{ F1_Title }}</p>
@@ -581,7 +667,11 @@
                        <div class="front">
               <div class="row card-header">
                 <div class="col-md-3 col-xs-3 col-sm-3 card_image_holder">
-                  <img src="../static/images/17.jpg" class="card-profile-image img-responsive">
+                  {% if F2_photo!=''%}
+                    <img src="../{{ F2_photo }}" class="card-profile-image img-responsive">
+                    {% else %}
+                    <img src="../static/images/17.jpg" class="card-profile-image img-responsive">
+                {% end %}
                 </div>
                 <div class="col-md-9 col-xs-9 col-sm-9 card-heading">
                   <p><b>{{F2_Name}}</b><br>{{F2_Title}}</p>
@@ -633,7 +723,11 @@
  <div class="front">
               <div class="row card-header">
                 <div class="col-md-3 col-xs-3 col-sm-3 card_image_holder">
-                  <img src="../static/images/17.jpg" class="card-profile-image img-responsive">
+                  {% if F3_photo!=''%}
+                    <img src="../{{ F3_photo }}" class="card-profile-image img-responsive">
+                    {% else %}
+                    <img src="../static/images/17.jpg" class="card-profile-image img-responsive">
+                {% end %}
                 </div>
                 <div class="col-md-9 col-xs-9 col-sm-9 card-heading">
                   <p><b>{{F3_Name}}</b><br>{{F3_Title}}</p>
@@ -692,7 +786,7 @@
         </div>
       </div>
       <!--First Row containing three cards-->
-      <div class="row">
+      <div class="row home-section">
       <!--Card 1-->
         <div class="col-md-4 col-xs-10 col-md-push-0 col-xs-push-1 grid-padding topcard card-holder">
           <div class=" flip-container4" ontouchstart="this.classList.toggle('hover');" onclick="$('.flip-container4').toggleClass('flip-container-on-click')">
@@ -703,7 +797,11 @@
               <div class="front">
               <div class="row card-header">
                 <div class="col-md-3 col-xs-3 col-sm-3 card_image_holder">
-                  <img src="../static/images/17.jpg" class="card-profile-image img-responsive">
+                  {% if R1_photo!=''%}
+                    <img src="../{{ R1_photo }}" class="card-profile-image img-responsive">
+                    {% else %}
+                    <img src="../static/images/17.jpg" class="card-profile-image img-responsive">
+                {% end %}
                 </div>
                 <div class="col-md-9 col-xs-9 col-sm-9 card-heading">
                 <p><b>{{ R1_Name }}</b><br>{{ R1_Title }}</p>
@@ -755,7 +853,11 @@
             <div class="front">
               <div class="row card-header">
                 <div class="col-md-3 col-xs-3 col-sm-3 card_image_holder">
-                  <img src="../static/images/17.jpg" class="card-profile-image img-responsive">
+                    {% if R2_photo!=''%}
+                    <img src="../{{ R2_photo }}" class="card-profile-image img-responsive">
+                    {% else %}
+                    <img src="../static/images/17.jpg" class="card-profile-image img-responsive">
+                {% end %}
                 </div>
                 <div class="col-md-9 col-xs-9 col-sm-9 card-heading">
                 <p><b>{{ R2_Name }}</b><br>{{ R2_Title }}</p>
@@ -806,7 +908,11 @@
             <div class="front">
               <div class="row card-header">
                 <div class="col-md-3 col-xs-3 col-sm-3 card_image_holder">
-                  <img src="../static/images/17.jpg" class="card-profile-image img-responsive">
+                  {% if R3_photo!=''%}
+                    <img src="../{{ R3_photo }}" class="card-profile-image img-responsive">
+                    {% else %}
+                    <img src="../static/images/17.jpg" class="card-profile-image img-responsive">
+                {% end %}
                 </div>
               <div class="col-md-9 col-xs-9 col-sm-9 card-heading">
                 <p><b>{{ R3_Name }}</b><br>{{ R3_Title }}</p>
